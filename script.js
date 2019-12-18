@@ -10,59 +10,104 @@ var questions = [
       choices: ["quotes", "curly brackets", "parentheses", "square brackets"],
       answer: "parentheses"
     },
-    {
-        title: "Loops are commonly started with ______.",
-        choices: ["in", "to", "for", "at"],
-        answer: "for"
-      },
-      {
-        title: "To insert a link to a page, use the tag _______.",
-        choices: ["a", "b", "c", "d"],
-        answer: "a"
-      },
-      {
-        title: "The logical structure of documents and the way a document is accessed and manipulated is commonly referred to as:",
-        choices: ["MOD", "DOM", "MAD", "DAM"],
-        answer: "DOM"
-      },
-      {
-        title: "Objects are enclosed within ____.",
-        choices: ["quotes", "curly brackets", "parentheses", "square brackets"],
-        answer: "curly brackets"
-      },
-      {
-        title: "Writing the steps of your code using correct terminology, without using actual code is called:",
-        choices: ["paracode", "precode", "psychocode", "pseudocode"],
-        answer: "pseudocode"
-      },
-      {
-        title: "A common way to test javascript code is by using ______.",
-        choices: ["event.preventDefault", "console.log", "indexOf", "appendChild"],
-        answer: "console.log"
-      },
   ];
 
-// Create timer to start on button click.
-var timeEl = document.querySelector(".time");
-var secondsLeft = 120;
 
-document.querySelector(".start-btn").addEventListener("click", setTime());
 
-function setTime() {
-  var timerInterval = setInterval(function() {
-    secondsLeft--;
 
-    if(secondsLeft === 0) {
-      clearInterval(timerInterval);
-      finalScore();
+
+
+
+
+// Display a landing page with a  welcome message and a button that sends user to the first question
+// Display first question with 4 possible answers:
+var incr = 0;
+var body = document.querySelector('body');
+var multiChoice1 = document.createElement("button");
+var multiChoice2 = document.createElement("button");
+var multiChoice3 = document.createElement("button");
+var multiChoice4 = document.createElement("button");
+var isItRight = document.createElement("div");
+console.log(isItRight)
+
+function displayQuestion(){
+  
+  var questionEl = document.createElement("div");
+  questionEl.textContent = questions[incr].title;
+  body.appendChild(questionEl);
+}
+displayQuestion()
+
+function displayMultiChoice(){
+
+  multiChoice1.textContent = questions[incr].choices[0];
+  body.appendChild(multiChoice1);
+  
+  multiChoice2.textContent = questions[incr].choices[1];
+  body.appendChild(multiChoice2);
+  
+  multiChoice3.textContent = questions[incr].choices[2];
+  body.appendChild(multiChoice3);
+  
+  multiChoice4.textContent = questions[incr].choices[3];
+  body.appendChild(multiChoice4);
+}
+displayMultiChoice();
+
+function gradeQuestion(){
+  
+  multiChoice1.addEventListener("click", function(){
+    if(multiChoice1.textContent == questions[0].answer){
+      isItRight.textContent = "You got it right!"
+      body.appendChild(isItRight)
     }
-
-  }, 1000);
+    else{
+      isItRight.textContent = "You got it wrong!"
+      body.appendChild(isItRight)
+    }
+  }
+  );
+  multiChoice2.addEventListener("click", function(){
+    if(multiChoice2.textContent == questions[0].answer){
+      isItRight.textContent = "You got it right!"
+      body.appendChild(isItRight)
+    }
+    else{
+      isItRight.textContent = "You got it wrong!"
+      body.appendChild(isItRight)
+    }
+  }
+  );
+  multiChoice3.addEventListener("click", function(){
+    if(multiChoice3.textContent == questions[0].answer){
+      isItRight.textContent = "You got it right!"
+      body.appendChild(isItRight)
+    }
+    else{
+      isItRight.textContent = "You got it wrong!"
+      body.appendChild(isItRight)
+    }
+  }
+  );
+  multiChoice4.addEventListener("click", function(){
+    if(multiChoice4.textContent == questions[0].answer){
+      isItRight.textContent = "You got it right!"
+      body.appendChild(isItRight)
+    }
+    else{
+      isItRight.textContent = "You got it wrong!"
+      body.appendChild(isItRight)
+    }
+  }
+  );
 }
+gradeQuestion()
 
 
 
-// Function that displays final score and saves final score to a leaderboard using local storage.
-function finalScore(){
-
-}
+  // Create event that changes color slightly if you mouse over button (on css).
+  // Create click event that determines if the user selection is correct or incorrect.
+  // If correct, increase the score by 1, if incorrect, no change to score
+    // Display correct/incorrect on the page.
+  // Send user to next question on the same click and repeat all steps under "Display first question" for additional questions.
+// Display user score and let user enter name. Store this info on local storage.
