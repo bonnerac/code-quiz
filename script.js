@@ -27,14 +27,14 @@ var questions = [
     },
   ];
 
-var timer  
-var score = 0;
+var seconds = (questions.length)*15  
+var yourScore = 0;
 var incr = 0;
 var body = document.querySelector('body');
 
 
-
-displayLandingPage();
+finalScore()
+// displayLandingPage();
 
 // Display a landing page with a  welcome message and a button that sends user to the first question
 function displayLandingPage(){
@@ -48,7 +48,7 @@ function displayLandingPage(){
   startButton.textContent = "Click Here To Start The Quiz"
   body.appendChild(startButton);
   var scoreBox = document.createElement("div");
-  scoreBox.textContent = "Score: " + score;
+  scoreBox.textContent = "Score: " + yourScore;
   body.appendChild(scoreBox);
   
   startButton.addEventListener("click", function(){
@@ -68,7 +68,7 @@ function displayQuestion(){
 // Display the score
 function displayScore(){
 var scoreBox = document.createElement("div");
-  scoreBox.textContent = "Score: " + score;
+  scoreBox.textContent = "Score: " + yourScore;
   body.appendChild(scoreBox);
   displayMultiChoice();
 };
@@ -91,7 +91,7 @@ function gradeQuestion (event) {
   if (event.target.dataset.correct == event.target.dataset.choice){
       isItRight.textContent = "You got it right!"
       body.appendChild(isItRight)
-      score ++;
+      yourScore ++;
       setTimeout(function()
       {(incr++);
       document.body.innerHTML = "";  
@@ -118,19 +118,75 @@ function gradeQuestion (event) {
       };
 
 
-// Display final score leaderboard
+// Display user score and let user enter name. Store this info on local storage.
 
 function finalScore(){
- 
-
-}
-
-
-
-
- 
- // If correct, increase the score by 1, if incorrect, no change to score
+  var hsTitle = document.createElement("div");
+  hsTitle.textContent = "High Scores"
+  document.body.appendChild(hsTitle);
+  var typeName = document.createElement("input");
+  typeName.setAttribute("type", "text");
+  typeName.placeholder = "Type name here..";
+  document.body.appendChild(typeName);
+  var submitButton = document.createElement("button");
+  submitButton.textContent = "Submit";
+  body.appendChild(submitButton);
+  submitButton.addEventListener("click", function(){
+    event.preventDefault();
+    var nameText = document.querySelector("input").value
+     var userScore = {
+      Name: nameText,
+      Score: yourScore,
+    };
+    var highScoreText = document.createElement("div");
+    highScoreText.textContent = ("Name: " + userScore.Name + " ---------- Score: " + userScore.Score)
+    var finalScore = highScoreText
+    body.appendChild(finalScore);
+    userScore.setAttribute("id", "score")
+    
+    function getScores(){
+    localStorage.setItem("score", JSON.stringify(userScore));
+    JSON.parse(localStorage.getItem("score"));
+    var variable2 = document.getAttribute("score")
+    
+    
+    console.log(variable2)
+    }
+    
+    getScores();
   
-    // Display correct/incorrect on the page.
-  // Send user to next question on the same click and repeat all steps under "Display first question" for additional questions.
-// Display user score and let user enter name. Store this info on local storage.
+  })};
+
+
+   
+    
+
+    
+
+
+
+
+    
+// function timer(){
+//   interval = setInterval(function() {
+//     secondsElapsed++;
+//     renderTime();
+//   }, 1000);
+
+// }    
+
+
+    
+    
+   
+    
+    
+    
+
+ 
+
+
+
+
+ 
+ 
