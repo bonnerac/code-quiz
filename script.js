@@ -33,50 +33,63 @@ var incr = 0;
 var body = document.querySelector('body');
 
 
-finalScore()
-// displayLandingPage();
+// finalScore()
+displayLandingPage();
 
 // Display a landing page with a  welcome message and a button that sends user to the first question
 function displayLandingPage(){
+  var scoreBox = document.createElement("div");
+  scoreBox.setAttribute("id", "score-box")
+  scoreBox.textContent = "Score: " + yourScore;
+  body.appendChild(scoreBox);
   var title = document.createElement("div");
+  title.setAttribute("id", "title")
   title.textContent = "Code Quiz"
   body.appendChild(title);
   var welcomeText = document.createElement("div");
+  welcomeText.setAttribute("id", "welcome-text")
   welcomeText.textContent = "Welcome to the Code Quiz! You will have " + (questions.length)*15 + " seconds to complete " + (questions.length) + " questions. Incorrect answers will deduct 5 seconds from your overall time. Good Luck!"
   body.appendChild(welcomeText);
   var startButton = document.createElement("button");
+  startButton.setAttribute("id", "start-button");
   startButton.textContent = "Click Here To Start The Quiz"
   body.appendChild(startButton);
-  var scoreBox = document.createElement("div");
-  scoreBox.textContent = "Score: " + yourScore;
-  body.appendChild(scoreBox);
+  
   
   startButton.addEventListener("click", function(){
     document.body.innerHTML = "";
-    displayQuestion(); 
+    displayScore();
+     
   })
 }
+// Display the score
+function displayScore(){
+  var scoreBox = document.createElement("div");
+  scoreBox.setAttribute("id", "score-box")
+    scoreBox.textContent = "Score: " + yourScore;
+    body.appendChild(scoreBox);
+    displayQuestion();
+    
+  };
+
 // Display first question 
 function displayQuestion(){
   
   var questionEl = document.createElement("div");
+  questionEl.setAttribute("id", "question")
   questionEl.textContent = questions[incr].title;
   body.appendChild(questionEl);
-  displayScore();
+  displayMultiChoice();
+  
   
 }
-// Display the score
-function displayScore(){
-var scoreBox = document.createElement("div");
-  scoreBox.textContent = "Score: " + yourScore;
-  body.appendChild(scoreBox);
-  displayMultiChoice();
-};
+
 
 // Display 4 possible answers on buttons
 function displayMultiChoice(){
   for(i=0; i < 4; i++){
     var button = document.createElement("button");
+    button.setAttribute("class", "button")
     button.textContent = questions[incr].choices[i];
     button.setAttribute('data-correct', questions[incr].answer);
     button.setAttribute('data-choice', questions[incr].choices[i]);
@@ -88,6 +101,7 @@ function displayMultiChoice(){
 // Determine if each question is right or wrong. If correct, send correct message, increase score by 1 and go on to next question. If incorrect, send incorrect message, and go on to next question. If last question, got on to finalScore
 function gradeQuestion (event) {    
   var isItRight = document.createElement("div");
+  isItRight.setAttribute("id", "is-it-right")
   if (event.target.dataset.correct == event.target.dataset.choice){
       isItRight.textContent = "You got it right!"
       body.appendChild(isItRight)
@@ -99,7 +113,7 @@ function gradeQuestion (event) {
           finalScore();
        }
        else{
-          displayQuestion();
+          displayScore();
        }
         }, 1500);}
   else{
@@ -112,7 +126,7 @@ function gradeQuestion (event) {
           finalScore();
        }
        else{
-          displayQuestion();
+          displayScore();
        }
         }, 1500)}
       };
@@ -122,13 +136,16 @@ function gradeQuestion (event) {
 
 function finalScore(){
   var hsTitle = document.createElement("div");
+  hsTitle.setAttribute("id", "title")
   hsTitle.textContent = "High Scores"
   document.body.appendChild(hsTitle);
   var typeName = document.createElement("input");
+  typeName.setAttribute("id", "type-name")
   typeName.setAttribute("type", "text");
   typeName.placeholder = "Type name here..";
   document.body.appendChild(typeName);
   var submitButton = document.createElement("button");
+  submitButton.setAttribute("id", "submit-button")
   submitButton.textContent = "Submit";
   body.appendChild(submitButton);
   submitButton.addEventListener("click", function(){
@@ -139,10 +156,11 @@ function finalScore(){
       Score: yourScore,
     };
     var highScoreText = document.createElement("div");
+    highScoreText.setAttribute("id", "hs-text")
     highScoreText.textContent = ("Name: " + userScore.Name + " ---------- Score: " + userScore.Score)
     var finalScore = highScoreText
     body.appendChild(finalScore);
-    userScore.setAttribute("id", "score")
+    
     
     function getScores(){
     localStorage.setItem("score", JSON.stringify(userScore));
